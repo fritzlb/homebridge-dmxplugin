@@ -72,3 +72,6 @@ Explanation:
 | b / b2       | The DMX channel(s) of your light for controlling blue                                   |                                                                                                      | required with types RGB, RGBW, RGBA, RGBWA                                |
 | a / a2       | The DMX channel(s) of your light for controlling amber                                  |                                                                                                      | required with types RGBA, RGBWA                                           |
 |              |                                                                                         |                                                                                                      |                                                                           |
+
+
+Note that white and amber channels are being automatically generated and depending on your setup colors could be weird. In that case simply add two accessories, one for RGB and another for amber or white (or even UV (or lime if you're owning those expensive ETC colorsource lights)).
