@@ -1,0 +1,14 @@
+{
+  "name": "homebridge-dmxplugin",
+  "displayName": "DMX Plugin by FRITZLB",
+  "version": "0.0.1",
+  "description": "Control your DMX lights using homebridge",
+  "license": "unlicense",
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "engines": {
+    "node": ">=10.17.0",
+    "homebridge": ">=0.4.8"
+  }
+}
