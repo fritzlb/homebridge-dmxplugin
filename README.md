@@ -6,7 +6,7 @@ First beta will be uploaded soon.
 
 
 
-This plugin is designed to work in combination with my dmx-cli software. You'll have to copy the dmx-cli.py and dmx-server.py script into the same location where they can be read by the user running homebridge and specify the path in your homebridge config.
+This plugin is designed to work in combination with my dmx-cli software. You'll have to copy the dmx-cli.py and dmx-server.py script into the same location where they can be read by the user running homebridge (and specify the path in your homebridge config) at the moment it's hard coded to /home/frederik.
 
 
 Example config:
@@ -62,7 +62,7 @@ Explanation:
 | name         | your name for the device that'll show up in homebridge                                  |                                                                                                      | yes                                                                       |
 | type         | The type of your DMX light.                                                             | W (single dimmer or white for halogen lamps), WWCW (Warm white + cold white), RGB, RGBA, RGBW, RGBWA | yes                                                                       |
 | interval     | The interval in which the plugin checks for new data (for example a color change) in ms | 500(0.5s), 1000 (1s), 3000 (3s, default)                                                             | optional                                                                  |
-| dmx-cli-path | Path of your dmx-cli installation.                                                      | /home/homebridge                                                                                     | yes                                                                       |
+| dmx-cli-path | Path of your dmx-cli installation. Not implemented yet                                  | /home/frederik                                                                                       | yes                                                                       |
 | x / x2       | The DMX channel(s) that is(are) always set to max (255/100%)                            | The dimmer channel of your 4ch light, for example 4                                                  | optional                                                                  |
 | w / w2       | The DMX channel(s) of your light for controlling white                                  | if your start adress is 5 and it's a simple dimmer, it's 5                                           | required with types W, RGBW, RGBWA, else ignored (use ww(2)/cw(2) instead |
 | ww / ww2     | The DMX channel(s) of your light for controlling warm white                             |                                                                                                      | required with type WWCW, else ignored (use w/w2 instead)                  |
