@@ -56,6 +56,7 @@ Accessor section:
     
     
 Explanation: 
+
 Config Item | Explanation | Required?
 "accessory": "homebridge-dmxplugin" | required by homebridge | YES
 "name": "YourNameHere" | required custom name (you choose) | YES
