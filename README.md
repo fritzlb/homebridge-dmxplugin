@@ -56,10 +56,9 @@ Accessor section:
     
     
 Explanation: 
-
-Config Item | Explanation | Required?
-"accessory": "homebridge-dmxplugin" | required by homebridge | YES
-"name": "YourNameHere" | required custom name (you choose) | YES
-
-
-"type": "RGB" / "RGBW" / "W" / "RGBA" / "RGBWA" / "WWCW" | Type of the DMX light | YES
+| Config Key | Description                                            | Examples                                                                                             | Required?          |
+|------------|--------------------------------------------------------|------------------------------------------------------------------------------------------------------|--------------------|
+| ---------- | ----------                                             | ----------                                                                                           | ----------         |
+| accessory  | always homebridge-dmxplugin                            |                                                                                                      | Yes, by homebridge |
+| name       | your name for the device that'll show up in homebridge |                                                                                                      | yes                |
+| type       | The type of your DMX light.                            | W (single dimmer or white for halogen lamps), WWCW (Warm white + cold white), RGB, RGBA, RGBW, RGBWA | yes                |
