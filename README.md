@@ -2,8 +2,10 @@
 
 WIP. Control your DMX lights using homebridge. Supports single channel dimmer lights (W), RGB, RGB+Amber (RGBA), RGBW, RGBWA and Temperature White lights with cold and warm white LEDs (WWCW). Each light can have up to two channels per color and up to two dimmer/shutter/... channels that are always set to 255 (or 100%).
 
-First beta will be uploaded soon.
+First beta needs to be manually installed. If you're running service mode, edit the start script and remove "--strict-plugin-resolution" (probably in /opt/homebridge/start.sh).
+Copy this repo into a folder named homebridge-dmxplugin and run "npm link" inside. If npm isn't found, run "export PATH=/opt/homebridge/bin:$PATH" first.
 
+Oh, and the plugin will break homebridge updates at the moment. You sould still be able to update by temporarily adding --strict-plugin-resolution to start.sh.
 
 
 This plugin is designed to work in combination with my dmx-cli software. You'll have to copy the dmx-cli.py and dmx-server.py script into the same location where they can be read by the user running homebridge (and specify the path in your homebridge config) at the moment it's hard coded to /home/frederik.
