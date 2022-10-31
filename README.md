@@ -10,7 +10,7 @@ This plugin is designed to work in combination with my dmx-cli software. You'll 
 
 
 Example config:
-Accessor section:
+(Accessory section)
 
     "accessories": [
         {
