@@ -60,4 +60,6 @@ Explanation:
 Config Item | Explanation | Required?
 "accessory": "homebridge-dmxplugin" | required by homebridge | YES
 "name": "YourNameHere" | required custom name (you choose) | YES
+
+
 "type": "RGB" / "RGBW" / "W" / "RGBA" / "RGBWA" / "WWCW" | Type of the DMX light | YES
