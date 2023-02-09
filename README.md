@@ -84,8 +84,8 @@ Setup on Raspberry Pi 4/400:
 
 Note that white and amber channels are being automatically generated and depending on your setup colors could look weird. In that case simply add two accessories, one for RGB and another for amber or white (or even UV (or lime if you're owning those expensive ETC colorsource lights)).
 
-#Contributing
+# Contributing
 If you encounter any issues, either fix them and create a pr or simply create an issue with a detailed description of your finds. For feature requests please create an issue first (before creating a pr).
 
-#info
+# info
 And how does this plugin work? Every time an accessory you configured loads, it tries to start dmx-server.py, a small python script designed to open a serial port and output dmx compliant data. If you change anything with your configured lamps inside the home app, this plugin executes dmx-cli.py which updates the dmx values that are being sent by dmx-server.py. Not very elegant, I know. But it works.
