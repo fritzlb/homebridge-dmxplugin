@@ -2,13 +2,18 @@
 
 WIP. Control your DMX lights using homebridge. Supports single channel dimmer lights (W), RGB, RGB+Amber (RGBA), RGBW, RGBWA and Temperature White lights with cold and warm white LEDs (WWCW). Each light can have up to two channels per color and up to two dimmer/shutter/... channels that are always set to 255 (or 100%).
 
-First beta needs to be manually installed. If you're running service mode, edit the start script and remove "--strict-plugin-resolution" (probably in /opt/homebridge/start.sh).
-Copy this repo into a folder named homebridge-dmxplugin and run "npm link" inside. If npm isn't found, run "export PATH=/opt/homebridge/bin:$PATH" first.
+Install using homebridge-config-ui. At the moment, only works if homebridge is installed in default paths on linux. 
+Setup on Raspberry Pi 4/400:
 
-Oh, and the plugin will break homebridge updates at the moment. You sould still be able to update by temporarily adding --strict-plugin-resolution to start.sh.
-
-
-This plugin is designed to work in combination with my dmx-cli software. You'll have to copy the dmx-cli.py and dmx-server.py script into the same location where they can be read by the user running homebridge (and specify the path in your homebridge config) at the moment it's hard coded to /home/frederik.
+- add dtoverlay=uart3 to /boot/config.txt
+- if not already installed, install homebridge using apt (https://github.com/homebridge/homebridge/wiki/Install-Homebridge-on-Debian-or-Ubuntu-Linux)
+- log into homebridge config ui and install this plugin (search for homebridge-dmxplugin)
+- connect a max485 to TX of UART3 on the GPIO header of the pi and to a DMX cable or socket
+- config your DMX lights using the explanation below 
+- if you see messages like "Serial not available" or "It seems like the server application isn't running" you probably didn't reboot after changing /boot/config.txt
+- if you get errors like "file not found" your paths are incorrect. Get a fresh copy of dmx-cli (https://github.com/fritzlb/dmx-cli) and copy it to /var/lib/homebridge/node_modules/homebridge-dmxplugin/dmx-cli. Then reboot.
+- you can ignore messages like "This server application seems to be already running". Every DMX light you configure tries to start the server but the server can only start once. Also, when restarting homebridge it stays alive.
+- if you are encountering performance issues on low powered hardware, you should set "interval" to something higher or reduce the number of lamps in config.json.
 
 
 Example config:
@@ -64,7 +69,7 @@ Explanation:
 | name         | your name for the device that'll show up in homebridge                                  |                                                                                                      | yes                                                                       |
 | type         | The type of your DMX light.                                                             | W (single dimmer or white for halogen lamps), WWCW (Warm white + cold white), RGB, RGBA, RGBW, RGBWA | yes                                                                       |
 | interval     | The interval in which the plugin checks for new data (for example a color change) in ms | 500(0.5s), 1000 (1s), 3000 (3s, default)                                                             | optional                                                                  |
-| dmx-cli-path | Path of your dmx-cli installation. Not implemented yet                                  | /home/frederik                                                                                       | yes                                                                       |
+| dmx-cli-path | Path of your dmx-cli installation. Not implemented yet                                  | /var/lib/homebridge/node_modules/homebridge-dmxplugin/dmx-cli                                                                                       | yes                                                                       |
 | x / x2       | The DMX channel(s) that is(are) always set to max (255/100%)                            | The dimmer channel of your 4ch light, for example 4                                                  | optional                                                                  |
 | w / w2       | The DMX channel(s) of your light for controlling white                                  | if your start adress is 5 and it's a simple dimmer, it's 5                                           | required with types W, RGBW, RGBWA, else ignored (use ww(2)/cw(2) instead |
 | ww / ww2     | The DMX channel(s) of your light for controlling warm white                             |                                                                                                      | required with type WWCW, else ignored (use w/w2 instead)                  |
@@ -77,3 +82,6 @@ Explanation:
 
 
 Note that white and amber channels are being automatically generated and depending on your setup colors could be weird. In that case simply add two accessories, one for RGB and another for amber or white (or even UV (or lime if you're owning those expensive ETC colorsource lights)).
+
+
+How does this work? Every time an accessory you configured loads, it tries to start dmx-server.py, a small python script designed to open a serial port and output dmx compliant data. If you change anything with your configured lamps inside the home app, this plugin executes dmx-cli.py which updates the dmx values that are being sent by dmx-server.py. Not very elegant, I know. But it works.
