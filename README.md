@@ -1,8 +1,9 @@
 # homebridge-dmxplugin
+Control your DMX lights using homebridge. Supports single channel dimmer lights (W), RGB, RGB+Amber (RGBA), RGBW, RGBWA and Temperature White lights with cold and warm white LEDs (WWCW). Each light can have up to two channels per color and up to two dimmer/shutter/... channels that are always set to 255 (or 100%).
 
-WIP. Control your DMX lights using homebridge. Supports single channel dimmer lights (W), RGB, RGB+Amber (RGBA), RGBW, RGBWA and Temperature White lights with cold and warm white LEDs (WWCW). Each light can have up to two channels per color and up to two dimmer/shutter/... channels that are always set to 255 (or 100%).
 
-Install using homebridge-config-ui. At the moment, only works if homebridge is installed in default paths on linux. 
+# setup
+Install using homebridge-config-ui. At the moment, only works out of the box if homebridge is installed in default paths on linux. 
 Setup on Raspberry Pi 4/400:
 
 - add dtoverlay=uart3 to /boot/config.txt
@@ -16,7 +17,7 @@ Setup on Raspberry Pi 4/400:
 - if you are encountering performance issues on low powered hardware, you should set "interval" to something higher or reduce the number of lamps in config.json.
 
 
-Example config:
+# Example config:
 (Accessory section)
 
     "accessories": [
@@ -62,7 +63,7 @@ Example config:
     ],
     
     
-Explanation: 
+# Explanation: 
 | Config Key   | Description                                                                             | Examples                                                                                             | Required?                                                                 |
 |--------------|-----------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
 | accessory    | always homebridge-dmxplugin                                                             |                                                                                                      | Yes, by homebridge                                                        |
@@ -81,7 +82,10 @@ Explanation:
 |              |                                                                                         |                                                                                                      |                                                                           |
 
 
-Note that white and amber channels are being automatically generated and depending on your setup colors could be weird. In that case simply add two accessories, one for RGB and another for amber or white (or even UV (or lime if you're owning those expensive ETC colorsource lights)).
+Note that white and amber channels are being automatically generated and depending on your setup colors could look weird. In that case simply add two accessories, one for RGB and another for amber or white (or even UV (or lime if you're owning those expensive ETC colorsource lights)).
 
+#Contributing
+If you encounter any issues, either fix them and create a pr or simply create an issue with a detailed description of your finds. For feature requests please create an issue first (before creating a pr).
 
-How does this work? Every time an accessory you configured loads, it tries to start dmx-server.py, a small python script designed to open a serial port and output dmx compliant data. If you change anything with your configured lamps inside the home app, this plugin executes dmx-cli.py which updates the dmx values that are being sent by dmx-server.py. Not very elegant, I know. But it works.
+#info
+And how does this plugin work? Every time an accessory you configured loads, it tries to start dmx-server.py, a small python script designed to open a serial port and output dmx compliant data. If you change anything with your configured lamps inside the home app, this plugin executes dmx-cli.py which updates the dmx values that are being sent by dmx-server.py. Not very elegant, I know. But it works.
