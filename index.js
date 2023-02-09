@@ -14,7 +14,7 @@ class DMXLamp {
 
     this.name = config.name;
     this.type = config.type;
-    this.log.debug('homebridge-dmxplugin loaded.');
+    this.log('homebridge-dmxplugin loaded.');
 
     // your accessory must have an AccessoryInformation service
     this.informationService = new this.api.hap.Service.AccessoryInformation()
@@ -77,8 +77,9 @@ class DMXLamp {
 
     //DMX Server plus senden
     const { exec } = require("child_process");
-    exec("/home/frederik/dmx-server.py", (err, stdout, stderr) => { //start the server if it's not running
-      //this.log.debug(stdout);
+    exec("/var/lib/homebridge/node_modules/homebridge-dmxplugin/dmx-cli/dmx-server.py", (err, stdout, stderr) => { //start the server if it's not running
+      this.log(stdout);
+      this.log(stderr);
     });
     let interval = 2000;
     if (config.interval != undefined) interval = config.interval;
@@ -104,7 +105,7 @@ class DMXLamp {
     if (value == false) {
       this.BrightnessPercentage = 0;
     }
-    if (value == true && this.OnStatus == false) {
+    if (value == true && this.OnStatus == false && this.BrightnessPercentage == 0) {
       this.BrightnessPercentage = 100;
     }
     this.OnStatus = value;
@@ -252,7 +253,7 @@ class DMXLamp {
     
     this.command_LOCK = true;
     
-    this.command = "/home/frederik/dmx-cli.py";
+    this.command = "/var/lib/homebridge/node_modules/homebridge-dmxplugin/dmx-cli/dmx-cli.py";
     
     if (this.config.x != undefined) { //always on
       this.command = this.command + " -" + this.config.x.toString() + " 255";
@@ -319,10 +320,13 @@ class DMXLamp {
     while (obj.command_LOCK);
     if (obj.command != obj.command_OLD) {
       obj.command_OLD = obj.command;
-      obj.log.debug(obj.command);
+      obj.log(obj.command);
       exec(obj.command, (err, stdout, stderr) => {
         if (stdout.length > 5) {
-          obj.log.debug(stdout);
+          obj.log(stdout);
+        }
+        if (stderr.length > 5) {
+          obj.log(stderr);
         }
       });
     }
