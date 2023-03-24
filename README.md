@@ -86,6 +86,11 @@ Note that white and amber channels are being automatically generated and dependi
 
 # Contributing
 If you encounter any issues, either fix them and create a pr or simply create an issue with a detailed description of your finds. For feature requests please create an issue first (before creating a pr).
+Steps for developing on this:
+Clone this repo and run npm link.
+Important: Homebridge needs to be started without --strict-plugin-resolution for npm link to work properly. Simply remove the flag from /opt/homebridge/start.sh.
+Locally installing this plugin might break homebridge updates, so use a dedicated development environment.
+Also, if you want to use the version of node homebridge ships with, run export PATH=$PATH:/opt/homebridge/bin
 
 # info
 And how does this plugin work? Every time an accessory you configured loads, it tries to start dmx-server.py, a small python script designed to open a serial port and output dmx compliant data. If you change anything with your configured lamps inside the home app, this plugin executes dmx-cli.py which updates the dmx values that are being sent by dmx-server.py. Not very elegant, I know. But it works.
